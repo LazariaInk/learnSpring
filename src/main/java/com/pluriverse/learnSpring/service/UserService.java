@@ -1,19 +1,21 @@
 package com.pluriverse.learnSpring.service;
 
 import com.pluriverse.learnSpring.model.User;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+@Service
 public class UserService {
     private static List<User> users = new ArrayList<>();
 
     static {
-        users.addAll(Arrays.asList(new User(0, "Peter"),
-                new User(1, "Eva"),
-                new User(2, "Edward"),
-                new User(3, "Tolkien")));
+        users.addAll(Arrays.asList(new User(0l, "Peter"),
+                new User(1l, "Eva"),
+                new User(2l, "Edward"),
+                new User(3l, "Tolkien")));
     }
 
     public List<User> getAllUsers() {
@@ -21,6 +23,7 @@ public class UserService {
     }
 
     public void addUser(User user) {
+        user.setId(Long.valueOf(users.size()));
         users.add(user);
     }
 
