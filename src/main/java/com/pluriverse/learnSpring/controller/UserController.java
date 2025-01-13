@@ -2,6 +2,7 @@ package com.pluriverse.learnSpring.controller;
 
 import com.pluriverse.learnSpring.model.User;
 import com.pluriverse.learnSpring.service.UserService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,7 +20,7 @@ public class UserController {
     }
 
     @PostMapping("users/create")
-    public void addUser(@RequestBody User user) {
+    public void addUser(@Valid @RequestBody User user) {
         userService.addUser(user);
     }
 

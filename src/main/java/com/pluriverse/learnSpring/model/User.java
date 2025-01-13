@@ -1,8 +1,11 @@
 package com.pluriverse.learnSpring.model;
 
 
+import jakarta.validation.constraints.Size;
+
 public class User {
     private long id;
+    @Size(min = 1, message = "Name should have more than one character")
     private String name;
 
     public User(long id, String name) {
