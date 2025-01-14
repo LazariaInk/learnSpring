@@ -12,10 +12,10 @@ public class UserService {
     private static List<User> users = new ArrayList<>();
 
     static {
-        users.addAll(Arrays.asList(new User(0l, "Peter"),
-                new User(1l, "Eva"),
-                new User(2l, "Edward"),
-                new User(3l, "Tolkien")));
+        users.addAll(Arrays.asList(new User(0l, "Peter", "lorienlored@gmail.com"),
+                new User(1l, "Eva", "eva@gmail.com"),
+                new User(2l, "Edward", "edward@gmail.com"),
+                new User(3l, "Tolkien", "lotr@gmail.com")));
     }
 
     public List<User> getAllUsers() {
