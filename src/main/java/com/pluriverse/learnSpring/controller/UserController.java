@@ -11,14 +11,21 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
+import org.springframework.context.i18n.LocaleContext;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Locale;
 
 @RestController
 public class UserController {
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private MessageSource messageSource;
 
     @Operation(summary = "Obtain all users", description = "Return a list with all users")
     @ApiResponse(responseCode = "200", description = "Success")
@@ -99,5 +106,11 @@ public class UserController {
             @Parameter(description = "ID-ul utilizatorului care trebuie modificat.", required = true)
             @PathVariable long id) {
         userService.modifyUser(modifiedUser, id);
+    }
+
+    @GetMapping("i18n/hello")
+    public String i18nHello() {
+        Locale locale = LocaleContextHolder.getLocale();
+        return messageSource.getMessage("hello.message", null, "Hello all!", locale);
     }
 }
