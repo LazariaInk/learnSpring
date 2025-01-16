@@ -14,6 +14,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContext;
 import org.springframework.context.i18n.LocaleContextHolder;
+import org.springframework.hateoas.EntityModel;
+import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -77,10 +80,13 @@ public class UserController {
             @ApiResponse(responseCode = "404", description = "Invalid.")
     })
     @GetMapping("users/{id}")
-    public User getUser(
+    public EntityModel<User> getUser(
             @Parameter(description = "User id", required = true)
             @PathVariable long id) {
-        return userService.getUser(id);
+        EntityModel<User> userEntityModel = EntityModel.of(userService.getUser(id));
+        WebMvcLinkBuilder webMvcLinkBuilder = WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(this.getClass()).getAllUsers());
+        userEntityModel.add(webMvcLinkBuilder.withRel("all-users"));
+        return userEntityModel;
     }
 
     @Operation(summary = "Modify a user", description = "Modify given user by id")

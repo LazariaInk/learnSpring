@@ -1,10 +1,16 @@
 package com.pluriverse.learnSpring.model;
 
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.Size;
 
+@Entity(name = "user_details")
 public class User {
+    @Id
+    @GeneratedValue
     private long id;
     @Size(min = 1, message = "Name should have more than one character")
     private String name;
