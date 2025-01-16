@@ -1,11 +1,11 @@
 package com.pluriverse.learnSpring.service;
 
+import com.pluriverse.learnSpring.model.Spot;
 import com.pluriverse.learnSpring.model.User;
 import com.pluriverse.learnSpring.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.PostConstruct;
 import java.util.List;
 
 @Service
@@ -39,5 +39,9 @@ public class UserService {
         User user = getUser(id);
         user.setName(modifiedUser.getName());
         userRepository.save(user);
+    }
+
+    public List<Spot> getAllSpotsOfUser(long id){
+        return userRepository.findById(id).get().getSpots();
     }
 }

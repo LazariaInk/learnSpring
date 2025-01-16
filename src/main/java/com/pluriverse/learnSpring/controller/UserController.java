@@ -1,22 +1,20 @@
 package com.pluriverse.learnSpring.controller;
 
+import com.pluriverse.learnSpring.model.Spot;
 import com.pluriverse.learnSpring.model.User;
 import com.pluriverse.learnSpring.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.ExampleObject;
-import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
-import org.springframework.context.i18n.LocaleContext;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -118,5 +116,12 @@ public class UserController {
     public String i18nHello() {
         Locale locale = LocaleContextHolder.getLocale();
         return messageSource.getMessage("hello.message", null, "Hello all!", locale);
+    }
+
+    @Operation(summary = "Obtain all users", description = "Return a list with all spots pof user")
+    @ApiResponse(responseCode = "200", description = "Success")
+    @GetMapping("/user/{id}/spots")
+    public List<Spot> getAllSpotsOfUser(@PathVariable long id) {
+        return userService.getAllSpotsOfUser(id);
     }
 }
